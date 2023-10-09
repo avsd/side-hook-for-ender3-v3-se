@@ -13,20 +13,20 @@ topGantryHeight = 18.00;
 
 
 hookTopWidth = 20;
-hookLength = 20;
+hookLength = 10;
 hookTipLength = 5;
 hookCutDepth = 5;
 hookCutWidth = 2;
 
-thickness = 3;
+thickness = 1.6;
 
 frameDistance = 5;
-frameHeightBig = 30;
-frameHeightSmall = 20;
+frameHeightBig = 20;
+frameHeightSmall = 10;
 
-lockDepth = 1.2;
+lockDepth = 0.8;
 
-roundingRadius = 0.5;
+roundingRadius = 0.7;
 
 allowance = 0.2;
 
@@ -44,7 +44,17 @@ module halfHook(mirrorIndex)
     }
 
 module hook() linear_extrude(thickness) minkowski() {
-    union() { halfHook(0); halfHook(1); }
+    intersection() {
+        union() { halfHook(0); halfHook(1); }
+        polygon([
+            [0, 0],
+            [0, totalLength],
+            [hookTopWidth - roundingRadius * 2, totalLength],
+            [hookTopWidth - roundingRadius * 2, hookTopWidth - roundingRadius * 2],
+            [thickness - roundingRadius * 2, 0]
+        ]);
+
+    }
     circle(roundingRadius, $fn=50);
 }
 
@@ -89,7 +99,7 @@ module locks() translate([0, 0, totalHeight - frameHeightBig]) intersection() {
 
 }
 
-mirror([isMirrored == 1 ? 1 : 0, 0, 0]) union() {
+mirror([isMirrored == 1 ? 1 : 0, 0, 0]) rotate([0, 0, -90]) union() {
     hook();
     sidePanel();
     locks();
