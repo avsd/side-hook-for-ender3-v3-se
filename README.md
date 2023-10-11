@@ -4,13 +4,13 @@
 
 Side hook for the gantry. Can be used to hang anything.
 I use it to suspend extruder cable, as my printer stands
-on a narrow shelf next to a passage - to reduce it
+on a narrow shelf next to a passage - to reduce a chance it
 being dragged by accident.
 
 ![Photo](./photo.jpg)
 
 * Easy to print
-* No additional screws needed
+* No screws needed
 * No support required
 
 ## License
